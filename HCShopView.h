@@ -17,4 +17,5 @@
 @property (strong, nonatomic) HCShop *shop;
 
 + (instancetype)shopView;
++ (instancetype)shopViewWithShop:(HCShop *)shop;
 @end

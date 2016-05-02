@@ -40,8 +40,9 @@
 // 懒加载 重写get方法
 - (NSArray *)shops {
     if (_shops == nil) {
-        // 加载数据
+        // 加载字典数组
         NSArray *dictArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"shops" ofType:@"plist"]];
+        // 将字典转换为模型，组成模型数组
         NSMutableArray *shopArray = [NSMutableArray array];
         for (NSDictionary *dict in dictArray) {
             HCShop *shop = [HCShop shopWithDict:dict];
@@ -78,8 +79,8 @@
 - (void)add {
 
     // 商品空间宽｜高
-    CGFloat shopW     = 50;
-    CGFloat shopH     = 70;
+    CGFloat shopW     = 80;
+    CGFloat shopH     = 90;
 
     // 列数
     int cols          = 3;
@@ -88,11 +89,13 @@
     CGFloat colMargin = (self.shopsView.frame.size.width - cols * shopW) / (cols - 1);
     CGFloat rowMargin = colMargin;
 
-    // 创建商品父控件作为容器
-    HCShopView *shopView = [HCShopView shopView];
-
     // 商品的索引
     NSUInteger index = self.shopsView.subviews.count;
+    
+    // 创建商品父控件作为容器
+    // HCShopView *shopView = [HCShopView shopView];
+    HCShopView *shopView = [HCShopView shopViewWithShop:self.shops[index]];
+
     
     // 给商品控件传递商品模型
     shopView.shop = self.shops[index];

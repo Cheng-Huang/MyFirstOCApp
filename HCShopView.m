@@ -13,22 +13,30 @@
 /**
  *  图片控件
  */
-@property (strong, nonatomic) UIImageView *iconView;
+@property (weak, nonatomic) IBOutlet UIImageView *iconView;
 /**
  *  名字控件
  */
-@property (strong, nonatomic) UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
 @end
 
 @implementation HCShopView
 
 + (instancetype)shopView
 {
-    return [[self alloc] init];
+    return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil]lastObject];
 }
 
++ (instancetype)shopViewWithShop:(HCShop *)shop
+{
+    HCShopView *shopView = [self shopView];
+    shopView.shop = shop;
+    return shopView;
+}
 
-// 重写get方法
+/*
+// 懒加载，重写get方法
 - (UIImageView *)iconView
 {
     if (_iconView == nil) {
@@ -52,11 +60,13 @@
     }
     return _nameLabel;
 }
+*/
 
 /**
  * 这个方法专门用来布局子控件，一般在这里设置子控件的frame
  * 当控件本身的尺寸发生改变的时候，系统会自动调用这个方法
  */
+/*
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -66,6 +76,7 @@
     self.iconView.frame = CGRectMake(0, 0, shopW, shopW);
     self.nameLabel.frame = CGRectMake(0, shopW, shopW, shopH - shopW);
 }
+*/
 
 - (void)setShop:(HCShop *)shop
 {
